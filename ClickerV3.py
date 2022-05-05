@@ -34,6 +34,44 @@ window.title("test")
 window.geometry('500x200')
 window.config(bg='pink')
 
+def BindPlus(event):
+    global LaatstUp
+    global LaatstDown
+    LaatstUp = 1
+    LaatstDown = 0
+    global Score
+    Score += 1
+    print(Score)
+    label['text'] = Score
+    if Score > 0:
+        window.config(bg='green')
+    if Score == 0:
+        window.config(bg='grey')
+    if Score < 0:
+        window.config(bg='red')
+    
+
+window.bind("=", BindPlus)
+
+def BindMin(event):
+    global Score
+    global LaatstUp
+    global LaatstDown
+    Score -= 1
+    LaatstUp = 0
+    LaatstDown = 1
+    print(Score)
+    label['text'] = Score
+    if Score > 0:
+        window.config(bg='green')
+    if Score == 0:
+        window.config(bg='grey')
+    if Score < 0:
+        window.config(bg='red')
+
+    
+window.bind("-", BindMin)
+
 LaatstUp = 0
 def ChangeLaatstUp(event):
     global LaatstUp
@@ -70,6 +108,7 @@ def MultiplyAndDivide(event):
         label['text'] = Score
 
 label.bind("<Double-Button>", MultiplyAndDivide)
+window.bind("<space>", MultiplyAndDivide)
 
 def ClearScore(event):
     global Score
@@ -81,7 +120,6 @@ label.bind("<Triple-Button-3>", ClearScore)
 buttonDown = tk.Button(window, text="Down", command=Min)
 buttonDown.pack(ipadx=10,ipady=10, fill='x', expand=True)
 buttonDown.bind("<Button>", ChangeLaatstDown)
-
 
 def ChangeEnter(event):
     window.config(bg="yellow")
